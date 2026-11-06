@@ -1,16 +1,30 @@
-name = "Hammer"
-stock = 10  # Stanje magacin lupam
+catalog = [
+    {"name": "Hammer", "price": 12.5, "stock": 10},
+    {"name": "Sledge Hammer", "price": 45.0, "stock": 3},
+    {"name": "Pliers", "price": 25.0, "stock": 4},
+    {"name": "Drill", "price": 120.0, "stock": 2},
+    {"name": "Saw", "price": 8.99, "stock": 0},
+]
 
-price = float(input("Price: "))
+search_name = input("Product: ").strip().lower()
 quantity = int(input("Quantity: "))  # Kolicina
 
-if price <= 0:
-    print("Invalid price")
+product = None
+
+for item in catalog:
+    if item["name"].lower() == search_name:
+        product = item
+        break
+
+if product is None:
+    print("Product not found")
 elif quantity < 1:
     print("Invalid quantity")
-elif quantity > stock:
-    print(f"Not enough stock: only {stock} left")
+elif quantity > product["stock"]:
+    print(f"Not enough stock: only {product['stock']} left")
 else:
+    name = product["name"]
+    price = product["price"]
     subtotal = quantity * price  # Medjuzbir
 
     if subtotal >= 100:
